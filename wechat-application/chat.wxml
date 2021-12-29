@@ -1,0 +1,20 @@
+
+   <wxs src="../../common.wxs" module="morejs" />
+    <form catchsubmit="formSubmit" catchreset="formReset">
+   <view class="section">
+  <textarea  auto-height auto-focus placeholder="自动变高" bindinput="bindInput" value="{{inputActivity}}"  maxlength="-1"/>
+  是否仅自己可见：<switch checked="{{switch1Checked}}" bindchange="switch1Change"/>
+</view>
+
+<image src="/images/buy.png" mode="aspectFit" bindtap='bindThingImageInput' style="height:50px;width:50px;position:relative;left:40%" />
+<image src="{{thingImage}}" mode="aspectFit" hidden="{{imgShow}}" />
+
+        <button style="margin: 30rpx 0" type="primary" formType="submit" style="position:relative">Submit</button>
+
+    </form>
+<view>
+<view wx:for="{{list}}" style="border:2px solid #ccc;margin:30rpx">
+<text>{{morejs.format(item.created)}}</text>
+{{item.text}}</view>
+
+</view>

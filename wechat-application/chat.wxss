@@ -1,0 +1,10 @@
+/* pages/ini/ini.wxss */
+.container {
+  max-width:100%;
+}
+
+textarea{
+  border: 1px lightgray solid;
+  height: 180px !important;
+}
+
