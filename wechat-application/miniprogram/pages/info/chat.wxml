@@ -1,0 +1,30 @@
+
+   <wxs src="../../common.wxs" module="morejs" />
+   <scroll-view scroll-y class="page  {{ msg.status==1 ? 'show' : '' }}" catchtouchmove="empty">
+	<view
+		class="_mask _flex-row-center-mid"
+		bindtap="setNewData"
+		data-prop="form.title"
+		data-val=""
+	>
+		<view style="background:#ffffff80 !important ;" class="_pos-rel _mar-x-30 _wid-100 _flex-col-mid _white-bg _border-radius-10" catchtap="empty">
+		  <view class="section">
+  <textarea  auto-height auto-focus placeholder="自动变高" bindinput="bindInput" value="{{inputActivity}}"  maxlength="-1"/>
+ <view style="color: #fff;margin:1em;">是否仅自己可见：<switch checked="{{switch1Checked}}" bindchange="switch1Change"/></view> 
+</view>
+<image src="/images/buy.png" mode="aspectFit" bindtap='bindThingImageInput' style="height:50px;width:50px;display: block;margin: 10px auto;" />
+<image style="margin: 10px auto; {{ imgShow==true ? '' : 'display:block;' }} " src="{{thingImage}}" mode="aspectFit" hidden="{{imgShow}}" />
+        <button type="primary" 	bindtap="formSubmit" style="margin-top: 30rpx;margin-bottom: 30rpx;">发表</button>
+
+		</view>
+	</view>
+</scroll-view>
+   <button style="margin-top: 15px;font-size:22px;height:30px;line-height:30px" class="mini-btn" type="primary" size="mini" bindtap="new">+</button>
+
+<view class="vs" wx:for-index="k" wx:for="{{list}}" style="background-color:{{bg_rd[k%bg_rd.length]}} ;">
+  <view >{{morejs.format(item.created)}}<image style="height:22px;width:22px;margin-left: 2vw;" wx:if="{{item.status=='waiting'}}" src="/images/line-chat-private.png" ></image></view>
+  <view wx:for="{{item.text}}">{{item}}</view>
+  
+  <image style="margin-bottom: 20px;height: 200px;width: 200px;" wx:if="{{item.img}}" src="https://www.mochengli.cn/{{item.img}}"></image>
+<!--这里是存放的对应的那个图片链接-->
+</view>

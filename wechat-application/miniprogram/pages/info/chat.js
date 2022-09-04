@@ -11,13 +11,37 @@ Page({
   data: {
     page:1,
     list:[],
+    bg_rd:["#8080C0","#336699","#B45B3E","#6699CC","#D0B271","#66CCCC"],
     switch1Checked: false,
     inputActivity:" ",
     thingImage:'',
     imgShow:true
   },
+   //弹窗隐藏
+   setNewData:function(e){
+    this.setData({
+      msg:{
+        status:0
+      },
+    })
+  },
+  setDetailVal:function(e){
+      const prop = e.currentTarget.dataset.prop
+      this.setData({
+        [prop]: e.detail.value
+      })
+    },  
+  //弹窗
+  new(e){
+      var that=this;
+      that.setData({
+        msg:{
+          status:1
+        }
+      })
+  
+    },
   switch1Change:function(e){
-		//设置是否仅自己可见
 if(e.detail.value==true){
   this.setData({
     switch1Checked:"waiting"
@@ -30,10 +54,10 @@ console.log(e.detail.value)
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getinfo();
   },
   onShow:function(){
-   this.getinfo();
+  
   },
   bindInput: function (e) {
     
@@ -42,10 +66,11 @@ console.log(e.detail.value)
     })
   },
   getinfo:function(){
+    //获取说说
     var obj=this;
     wx.request({
       //url:getApp().globalData.url+"",
-      url:"博客地址/wx.php",
+      url:"https://www.mochengli.cn/wx.php",
       data:{
         page:obj.data.page,
         md5: "getinfo",
@@ -65,6 +90,14 @@ console.log(e.detail.value)
 obj.setData({
   total:res.data.total
 })
+// console.log(res.data.list)
+// let list_result=res.data.list;
+// list_result.forEach(e=>{
+
+//   let listr=e.text.split("\n");
+//   console.log(listr);
+
+// });
 if (obj.data.list.length==0) {
   obj.setData({
     list:res.data.list
@@ -93,7 +126,7 @@ if (obj.data.list.length==0) {
     
     }
 	},
-  bindThingImageInput: function() { //商品图片选择
+  bindThingImageInput: function() { //图片选择
     var that = this;
     var thingImage=that.data.thingImage
     wx.chooseImage({
@@ -112,14 +145,14 @@ if (obj.data.list.length==0) {
           thingImage: res.tempFilePaths
         })
         wx.uploadFile({
-          url: '博客地址/wxup.php', 
+          url: 'https://www.mochengli.cn/wxup.php', //这里要替换掉
           filePath: tempFilePaths[0],
           name: 'file',
           // header: {
           //   'content-type': 'multipart/form-data' // 默认值
           // },
           formData: {
-            'md5': 'submit'
+            'md5': 'mochengli520'
           },
           success (res){
             const data = res.data
@@ -142,12 +175,11 @@ if (obj.data.list.length==0) {
       this.data.img=''
     }
       wx.request({
-        
-        url:"博客地址/wx.php",
+        url:"xxx",//这是服务器的地址
         data:{
-          content:this.data.inputActivity+this.data.img,//内容
+          content:this.data.inputActivity+'\n'+this.data.img,//内容
           status:this.data.switch1Checked,
-          md5: "submit",
+          md5: "xxx",//这里和服务器的保持一致
         },
         method:"POST",
         header:{
@@ -166,7 +198,7 @@ if (obj.data.list.length==0) {
     img:'',
     thingImage:''
   })
-
+that.onShow()
       }},
         fail:function(res) {
           //console.log(this.record);

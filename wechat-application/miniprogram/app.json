@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/info/chat"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "星橙有怡",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+{
+      "pagePath":"pages/info/chat",
+      "text": "说说",
+      "iconPath":"images/tabBar/sp.png",
+      "selectedIconPath":"images/tabBar/sp-active.png"
+    },{
+      "pagePath":"pages/info/chat",
+      "text": "说说",
+      "iconPath":"images/tabBar/sp.png",
+      "selectedIconPath":"images/tabBar/sp-active.png"
+    }]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}
