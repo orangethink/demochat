@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ERROR); 
+
+ini_set("display_errors","Off");
 header("Content-Type:text/html;charset=utf-8");
 $con=mysql_connect('','数据库用户名','数据库密码');
 $db=mysql_select_db('数据库名');
@@ -24,12 +27,20 @@ switch($_POST["md5"]){
     $psize=$_POST["size"]?$_POST["size"]:20; //获取每页显示多少条
     $query="select count(*) as count from typecho_comments where cid=".$cid; //cid 
  	$count=mysql_fetch_assoc(mysql_query($query)); //获取说说总条数
-     $sql="select created,text  from typecho_comments where cid=".$cid." order by created desc limit ".($pindex-1)*$psize.",".$psize;
-if ($res=mysql_query($sql)){
-    while($row=mysql_fetch_assoc($res)){ 
-      $result[]=$row);
-}
-}
+        $sql="select created,text,status  from typecho_comments where cid=52 order by created desc limit ".($pindex-1)*$psize.",".$psize;
+    if ($res=mysql_query($sql)){
+        while($row=mysql_fetch_assoc($res)){ 
+       $row4=preg_split("/<img/",$row['text']);
+       $row3['created']=$row['created'];
+       $row3['status']=$row['status'];
+       $row3['text']=array_filter(preg_split("/\s/",$row4[0]));
+       $row3['img']=preg_replace_callback('/src=\/(.*?)\/>/',function($m){
+       return str_replace(' ','',$m[1]);
+          },$row4[1]);
+      $row3['img']=str_replace(' ','',$row3['img']);
+      $result[]= $row3;
+    }
+    }
     
     $res=[
     'total'=>$count['count'],
